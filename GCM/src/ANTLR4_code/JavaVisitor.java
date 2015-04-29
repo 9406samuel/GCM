@@ -1,3 +1,4 @@
+package ANTLR4_code;
 // Generated from Java.g4 by ANTLR 4.4
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
