@@ -341,7 +341,10 @@ public class JavaBaseListener implements JavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocalVariableDeclarationStatement(@NotNull JavaParser.LocalVariableDeclarationStatementContext ctx) { }
+	@Override public void enterLocalVariableDeclarationStatement(@NotNull JavaParser.LocalVariableDeclarationStatementContext ctx) {
+		
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 *
@@ -893,7 +896,7 @@ public class JavaBaseListener implements JavaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocalVariableDeclaration(@NotNull JavaParser.LocalVariableDeclarationContext ctx) { }
+	@Override public void enterLocalVariableDeclaration(@NotNull JavaParser.LocalVariableDeclarationContext ctx) {}
 	/**
 	 * {@inheritDoc}
 	 *
