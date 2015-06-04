@@ -1,49 +1,8 @@
-package Controller;
+import java.util;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-
-import ANTLR4_code.*;
-import Model.SizeMetric;
-
-public class Controller {
-	private static Controller instance;
-		int samuel;
-	Controller a;
-	public synchronized static Controller getInstance() {
-Controller a;
-        if (instance == null) {
-
-            instance = new Controller();
-        }
-
-        return instance;
-    }
+public class HelloWorld{
+	public static void main( String[] args){
+	System.out.println("hello world" );
+	}
 	
-	
-		
-	public void miguelRoscon(){
-	}
-	public void miguelRoscon(){
-	}
-	public static void main(String[] args) throws Exception {
-		try {
-			JavaLexer lexer;
-			if (args.length > 0)
-				lexer = new JavaLexer(new ANTLRFileStream(args[0]));
-			else
-				lexer = new JavaLexer(new ANTLRInputStream(System.in));
-
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
-			JavaParser parser = new JavaParser(tokens);
-	int samuel;
-			ParseTree tree = parser.compilationUnit();
-			ParseTreeWalker walker = new ParseTreeWalker();
-			walker.walk( new SizeMetric(), tree);
-			
-			System.out.println(tree.toStringTree(parser));
-		} catch (Exception e) {
-			System.err.println("Error (Test): " + e);
-		}
-	}
 }
