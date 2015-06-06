@@ -298,13 +298,9 @@ public class SizeMetric extends Metric{
 		}
 	}
 	
-
 	@Override
 	public void exitCompilationUnit(@NotNull JavaParser.CompilationUnitContext ctx) { 
-		/*
-		for(String x: operandsList.keySet()){
-			System.out.println("variables: " + x + " " + operandsList.get(x) );
-		}*/
+	
 	}
 	
 	public int findNumLinesOfCode( @NotNull ParserRuleContext ctx ){
@@ -314,4 +310,20 @@ public class SizeMetric extends Metric{
 		else
 			return 0;
 		}
+
+	@Override
+	public String toString() {
+		return "SizeMetric [numMethods=" + numMethods + ", numPackage="
+				+ numPackage + ", numImport=" + numImport + ", numLocalVars="
+				+ numLocalVars + ", numFields=" + numFields
+				+ ", numInstanceClass=" + numInstanceClass
+				+ ", numPrimitiveVars=" + numPrimitiveVars
+				+ ", numLinesOfCode=" + numLinesOfCode + ", numFather="
+				+ numFather + ", numImplementations=" + numImplementations
+				+ ", numAccessModifiers=" + numAccessModifiers
+				+ ", numStatements=" + numStatements + ", primitiveTypes="
+				+ primitiveTypes + "]";
+	}
+	
+	
 }

@@ -6,7 +6,9 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import ANTLR4_code.*;
+import Model.ControlMetric;
 import Model.HalsteadSizeMatric;
+import Model.MaintainabilityMetric;
 import Model.SizeMetric;
 
 public class Controller {
@@ -31,7 +33,6 @@ public class Controller {
 			
 			ParseTree tree = parser.compilationUnit();
 			
-			
 			ParseTreeWalker walker = new ParseTreeWalker();
 			SizeMetric sizeM = new SizeMetric();
 			HalsteadSizeMatric halsteadSizeM = new HalsteadSizeMatric( tokenList );
@@ -40,6 +41,16 @@ public class Controller {
 			halsteadSizeM.computeOperandsAndOperators();
 			halsteadSizeM.computeHalsteadMetrics();
 			
+			ControlMetric controlM = new ControlMetric( halsteadSizeM.getOperators());	
+			controlM.computeCyclomaticComplexity();
+			
+			MaintainabilityMetric maintainabilityM = new MaintainabilityMetric(sizeM.getNumLinesOfCode(), 
+														controlM.getCyclomaticComplexity(), halsteadSizeM.getVolumen());
+			
+			System.out.println(sizeM.toString());
+			System.out.println(halsteadSizeM.toString());
+			System.out.println(controlM.getCyclomaticComplexity());
+			System.out.println(maintainabilityM.toString());
 			
 			System.out.println(tree.toStringTree(parser));
 		} catch (Exception e) {

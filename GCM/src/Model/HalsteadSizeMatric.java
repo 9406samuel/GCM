@@ -141,7 +141,6 @@ public class HalsteadSizeMatric extends SizeMetric {
 
 	public void computeOperandsAndOperators(){
 		operands = getOperandsList();
-		System.out.println("before: " + operands.size());
 		try{
 		for( String x: tokenList ){
 			if( operands.containsKey(x) ){
@@ -170,7 +169,7 @@ public class HalsteadSizeMatric extends SizeMetric {
 		computeVolume();
 		computeDifficulty();
 		computeEffort();
-		
+	/*	
 		System.out.println("distinct operators: " + getDistinctOperators()
 		+ "\ndistinct operands: " + getDistinctOperands() +
 		"\ntotal operators: " + getTotalOperators() +
@@ -181,8 +180,9 @@ public class HalsteadSizeMatric extends SizeMetric {
 		"\nvolume: " + getVolumen() +
 		"\ndifficulty: " + getDifficulty() +
 		"\neffort: " + getEffort());
+	 */
 	}
-	
+		
 	private void computeDistinctOperators(){
 		setDistinctOperators( operators.size() );
 	}
@@ -236,4 +236,19 @@ public class HalsteadSizeMatric extends SizeMetric {
 	private void computeEffort(){
 		setEffort( getDifficulty()*getVolumen());
 	}
+
+	@Override
+	public String toString() {
+		return "HalsteadSizeMatric [tokenList=" + tokenList + ", operands="
+				+ operands + ", operators=" + operators
+				+ ", distinctOperators=" + distinctOperators
+				+ ", distinctOperands=" + distinctOperands
+				+ ", totalOperators=" + totalOperators + ", totalOperands="
+				+ totalOperands + ", vocabulary=" + vocabulary
+				+ ", observedLength=" + observedLength + ", calculatedLength="
+				+ calculatedLength + ", volumen=" + volumen + ", difficulty="
+				+ difficulty + ", effort=" + effort + "]";
+	}
+	
+	
 }
