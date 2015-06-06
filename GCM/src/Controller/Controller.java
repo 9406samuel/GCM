@@ -46,7 +46,7 @@ public class Controller {
 			
 			MaintainabilityMetric maintainabilityM = new MaintainabilityMetric(sizeM.getNumLinesOfCode(), 
 														controlM.getCyclomaticComplexity(), halsteadSizeM.getVolumen());
-			
+				
 			System.out.println(sizeM.toString());
 			System.out.println(halsteadSizeM.toString());
 			System.out.println(controlM.getCyclomaticComplexity());
