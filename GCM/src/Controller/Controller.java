@@ -1,21 +1,39 @@
 package Controller;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 import ANTLR4_code.*;
-import Model.ControlMetric;
-import Model.HalsteadSizeMatric;
-import Model.MaintainabilityMetric;
-import Model.SizeMetric;
+import Model.Model;
+import View.Application;
 
 public class Controller {
-	private static Controller instance;
+
+	private static Application window;
+	private static Model model;
 	
+	public static Application getWindow() {
+		return window;
+	}
+
+	public static void setWindow(Application window) {
+		Controller.window = window;
+	}
+
+	public static Model getModel() {
+		return model;
+	}
+
+	public static void setModel(Model model) {
+		Controller.model = model;
+	}
+
 	public static void main(String[] args) throws Exception {
 		try {
+			
 			ArrayList<String> tokenList = new ArrayList<>();
 			JavaLexer lexer;
 			if (args.length > 0)
@@ -32,26 +50,30 @@ public class Controller {
 			JavaParser parser = new JavaParser(tokens);
 			
 			ParseTree tree = parser.compilationUnit();
-			
 			ParseTreeWalker walker = new ParseTreeWalker();
-			SizeMetric sizeM = new SizeMetric();
-			HalsteadSizeMatric halsteadSizeM = new HalsteadSizeMatric( tokenList );
-			walker.walk(sizeM, tree);
 			
-			halsteadSizeM.computeOperandsAndOperators();
-			halsteadSizeM.computeHalsteadMetrics();
+			model = new Model( tokenList );
+			walker.walk( getModel().getSizeM(), tree);
 			
-			ControlMetric controlM = new ControlMetric( halsteadSizeM.getOperators());	
-			controlM.computeCyclomaticComplexity();
+			model.computeMetrics();
 			
-			MaintainabilityMetric maintainabilityM = new MaintainabilityMetric(sizeM.getNumLinesOfCode(), 
-														controlM.getCyclomaticComplexity(), halsteadSizeM.getVolumen());
-				
-			System.out.println(sizeM.toString());
-			System.out.println(halsteadSizeM.toString());
-			System.out.println(controlM.getCyclomaticComplexity());
-			System.out.println(maintainabilityM.toString());
+			System.out.println(model.getSizeM().toString());
+			System.out.println(model.getControlM().toString());
+			System.out.println(model.getHalsteadSizeM().toString());
+			System.out.println(model.getMaintainabilityM().toString());
 			
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						window = new Application();
+						window.getFrame().setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			
+		
 			System.out.println(tree.toStringTree(parser));
 		} catch (Exception e) {
 			System.err.println("Error (Test): " + e);

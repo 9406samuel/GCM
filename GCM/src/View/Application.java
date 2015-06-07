@@ -7,10 +7,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+
 import java.awt.Toolkit;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -24,6 +28,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.ButtonGroup;
+
+import Controller.Controller;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
@@ -33,39 +40,27 @@ public class Application {
 	private JFrame frame;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		 try {
-		        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		    } catch(Exception e) {
-		        System.out.println("Error setting native LAF: " + e);
-		    }
-		 
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Application window = new Application();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public Application() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch(Exception e) {
+			System.out.println("Error setting native LAF: " + e);
+		}
+		
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 711, 556);
