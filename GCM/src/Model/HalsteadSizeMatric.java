@@ -19,9 +19,9 @@ public class HalsteadSizeMatric extends SizeMetric {
 	private double difficulty;
 	private double effort;
 	
-	public HalsteadSizeMatric( ArrayList<String> l ){
+	public HalsteadSizeMatric( ArrayList<String> l, HashMap<String, Integer> m ){
 		this.tokenList = l;
-		operands = new HashMap<>();
+		operands = m;
 		operators = new HashMap<>();
 		distinctOperators = 0;
 		distinctOperands = 0;
@@ -140,7 +140,7 @@ public class HalsteadSizeMatric extends SizeMetric {
 	}
 
 	public void computeOperandsAndOperators(){
-		operands = getOperandsList();
+	
 		try{
 		for( String x: tokenList ){
 			if( operands.containsKey(x) ){
@@ -169,19 +169,8 @@ public class HalsteadSizeMatric extends SizeMetric {
 		computeVolume();
 		computeDifficulty();
 		computeEffort();
-	/*	
-		System.out.println("distinct operators: " + getDistinctOperators()
-		+ "\ndistinct operands: " + getDistinctOperands() +
-		"\ntotal operators: " + getTotalOperators() +
-		"\ntotal operands: " + getTotalOperands() +
-		"\nvocabulary: " +getVocabulary() +
-		"\nobserved length: " + getObservedLength() +
-		"\ncalculated length: " + getCalculatedLength() +
-		"\nvolume: " + getVolumen() +
-		"\ndifficulty: " + getDifficulty() +
-		"\neffort: " + getEffort());
-	 */
-	}
+	
+		}
 		
 	private void computeDistinctOperators(){
 		setDistinctOperators( operators.size() );

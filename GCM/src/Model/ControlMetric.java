@@ -11,14 +11,14 @@ public class ControlMetric extends Metric{
 	private List<String> keys;
 	
 	public ControlMetric( HashMap<String, Integer> op ){
-		cyclomaticComplexity = 0;
+		cyclomaticComplexity = 1;
 		operators = op;
 		keys = new ArrayList<>();
 		initializeKeys();
 	}
 
 	public int getCyclomaticComplexity() {
-		return cyclomaticComplexity + 1;
+		return cyclomaticComplexity ;
 	}
 
 	public void setCyclomaticComplexity(int cyclomaticComplexity) {

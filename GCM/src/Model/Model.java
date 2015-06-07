@@ -9,13 +9,37 @@ public class Model {
 	private HalsteadSizeMatric halsteadSizeM ;
 	private ControlMetric controlM;
 	private MaintainabilityMetric maintainabilityM;
+	private ANTLRAnalysis analyzer;
+
+	public Model(){
+		analyzer = new ANTLRAnalysis();
+		
+	}
 	
-	public Model( ArrayList<String> tokenList ){
+	public void startAnalysis( String nameInput ){
 		sizeM = new SizeMetric(); 
-		halsteadSizeM = new HalsteadSizeMatric( tokenList );
-		controlM = new ControlMetric( halsteadSizeM.getOperators());	
-		maintainabilityM = new MaintainabilityMetric(sizeM.getNumLinesOfCode(), 
-				controlM.getCyclomaticComplexity(), halsteadSizeM.getVolumen());
+		start( analyzer.startAnalysis( nameInput, sizeM ));
+		printResults();
+	}
+
+	public void start( ArrayList<String> tokenList ){
+		halsteadSizeM = new HalsteadSizeMatric( tokenList, sizeM.getOperandsList());
+		halsteadSizeM.computeOperandsAndOperators();
+		halsteadSizeM.computeHalsteadMetrics();		
+		controlM = new ControlMetric( halsteadSizeM.getOperators());
+		controlM.computeCyclomaticComplexity();
+		maintainabilityM = new MaintainabilityMetric(sizeM.getNumLinesOfCode(), controlM.getCyclomaticComplexity(), halsteadSizeM.getVolumen());
+		maintainabilityM.computeMaintainabilityIndex();
+		
+	
+	}
+	
+	public ANTLRAnalysis getAnalyzer() {
+		return analyzer;
+	}
+	
+	public void setAnalyzer(ANTLRAnalysis analyzer) {
+		this.analyzer = analyzer;
 	}
 	
 	public SizeMetric getSizeM() {
@@ -49,13 +73,14 @@ public class Model {
 	public void setMaintainabilityM(MaintainabilityMetric maintainabilityM) {
 		this.maintainabilityM = maintainabilityM;
 	}
+	
+	public void printResults(){
 
-	public void computeMetrics(){
+		System.out.println(getSizeM().toString());
+		System.out.println(getControlM().toString());
+		System.out.println(getHalsteadSizeM().toString());
+		System.out.println(getMaintainabilityM().toString());
 		
-		halsteadSizeM.computeOperandsAndOperators();
-		halsteadSizeM.computeHalsteadMetrics();		
-		controlM.computeCyclomaticComplexity();
-		maintainabilityM.computeMaintainabilityIndex();
 	}
 	
 						

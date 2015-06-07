@@ -23,7 +23,7 @@ public class SizeMetric extends Metric{
 	private int numLinesOfCode;
 	private int numFather;
 	private int numImplementations;
-	private static HashMap< String, Integer > operandsList;
+	private HashMap< String, Integer > operandsList;
 	private HashMap< String, Integer > numAccessModifiers;
 	private HashMap< String, Integer > numStatements;
 	List<String> primitiveTypes;
@@ -70,10 +70,10 @@ public class SizeMetric extends Metric{
 		primitiveTypes.add("short");
 	}
 	
-	public static HashMap<String, Integer> getOperandsList() {
+	public HashMap<String, Integer> getOperandsList() {
 		return operandsList;
 	}
-	public static void setOperandsList(HashMap<String, Integer> operandsList) {
+	public void setOperandsList(HashMap<String, Integer> operandsList) {
 		operandsList = operandsList;
 	}
 	public int getNumMethods() {
@@ -300,7 +300,8 @@ public class SizeMetric extends Metric{
 	
 	@Override
 	public void exitCompilationUnit(@NotNull JavaParser.CompilationUnitContext ctx) { 
-	
+		setNumLinesOfCode(findNumLinesOfCode(ctx));
+		
 	}
 	
 	public int findNumLinesOfCode( @NotNull ParserRuleContext ctx ){

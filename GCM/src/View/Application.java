@@ -11,10 +11,12 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.UIManager;
 
 import java.awt.Toolkit;
 
+import javax.swing.JFileChooser;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -34,11 +36,24 @@ import Controller.Controller;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.awt.Font;
 
 public class Application {
 
 	private JFrame frame;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	final JTextArea codeTextArea = new JTextArea();
+	JTextArea resultsTextArea = new JTextArea();
+	private File f;
 
 	public Application() {
 		try {
@@ -61,6 +76,7 @@ public class Application {
 
 	private void initialize() {
 		
+		f = new File("");
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 711, 556);
@@ -76,7 +92,22 @@ public class Application {
 		JPanel insertFilePanel = new JPanel();
 		insertFilePanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Insert file:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JButton browserButton = new JButton("Browse...");
+		final JButton browserButton = new JButton("Browse...");
+		final JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		
+		browserButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int result = fileChooser.showOpenDialog(frame );
+				if (result == JFileChooser.APPROVE_OPTION) {
+					f = fileChooser.getSelectedFile();
+					System.out.println("Selected file: " + f.getAbsolutePath());
+				}else{
+					f = new File("");
+				}
+			}
+		});
 		GroupLayout gl_insertFilePanel = new GroupLayout(insertFilePanel);
 		gl_insertFilePanel.setHorizontalGroup(
 			gl_insertFilePanel.createParallelGroup(Alignment.TRAILING)
@@ -98,18 +129,20 @@ public class Application {
 		outputFilePane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Output file:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton generateButton = new JButton("Generate");
+		
 		GroupLayout gl_outputFilePane = new GroupLayout(outputFilePane);
 		gl_outputFilePane.setHorizontalGroup(
 			gl_outputFilePane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_outputFilePane.createSequentialGroup()
-					.addGap(20)
+					.addGap(19)
 					.addComponent(generateButton, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		gl_outputFilePane.setVerticalGroup(
 			gl_outputFilePane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_outputFilePane.createSequentialGroup()
-					.addComponent(generateButton, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, gl_outputFilePane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(generateButton, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		outputFilePane.setLayout(gl_outputFilePane);
@@ -129,7 +162,8 @@ public class Application {
 		gl_outputGraphicPanel.setVerticalGroup(
 			gl_outputGraphicPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_outputGraphicPanel.createSequentialGroup()
-					.addComponent(analizeButton, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+					.addContainerGap()
+					.addComponent(analizeButton, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		outputGraphicPanel.setLayout(gl_outputGraphicPanel);
@@ -153,7 +187,7 @@ public class Application {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(outputGraphicPanel, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(outputFilePane, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+							.addComponent(outputFilePane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addComponent(resultsPanel, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
@@ -168,27 +202,62 @@ public class Application {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(resultsPanel, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(outputGraphicPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(insertFilePanel, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-							.addComponent(optionsPane, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-							.addComponent(outputFilePane, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-						.addComponent(outputGraphicPanel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+							.addComponent(insertFilePanel, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+							.addComponent(optionsPane, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+							.addComponent(outputFilePane, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		
 		JScrollPane resultsScrollPane = new JScrollPane();
 		resultsPanel.add(resultsScrollPane);
 		
-		JTextArea resultsTextArea = new JTextArea();
+		
 		resultsScrollPane.setViewportView(resultsTextArea);
 		codePanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JScrollPane codeScrollPane = new JScrollPane();
 		codePanel.add(codeScrollPane);
+		codeTextArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		codeTextArea.setTabSize(4);
 		
-		JTextArea codePane = new JTextArea();
-		codeScrollPane.setViewportView(codePane);
+		
+		codeTextArea.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				codeTextArea.selectAll();
+			}
+			@Override
+			public void focusLost( FocusEvent f){
+				//aqui vay que pasar un archivo con lo que se ingreso como codigo
+				System.out.println("hola");
+			}
+		});
+		codeScrollPane.setViewportView(codeTextArea);
+		
+		generateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(f.getName().equals("")){
+				try {
+					PrintWriter out = new PrintWriter("input.txt");
+					out.print(codeTextArea.getText());
+					out.close();
+					Controller.getModel().startAnalysis("input.txt");
+					
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+				else{
+					System.out.println("nombre del archivo: " + f.getName());
+					Controller.getModel().startAnalysis(f.getAbsolutePath());
+			}
+			}
+		});
+		
+		
 		
 		JRadioButton jpegFormat = new JRadioButton("JPEG");
 		buttonGroup.add(jpegFormat);
