@@ -11,6 +11,9 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import ANTLR4_code.JavaLexer;
 import ANTLR4_code.JavaParser;
+import Controller.Controller;
+import ErrorHandling.LexicalError;
+import ErrorHandling.SyntacticError;
 
 public class ANTLRAnalysis {
 
@@ -25,6 +28,8 @@ public class ANTLRAnalysis {
 
 	public ArrayList<String> startAnalysis(String nameFileInput, SizeMetric sizeM) {
 		try {
+			
+			
 			lexer = new JavaLexer(new ANTLRFileStream(nameFileInput));
 			tokens = new CommonTokenStream(lexer);
 			tokenList = new ArrayList<>();
@@ -34,13 +39,18 @@ public class ANTLRAnalysis {
 				tokenList.add(token.getText());
 			}
 			lexer.reset();
-
+			
 			parser = new JavaParser(tokens);
+			lexer.removeErrorListeners();
+			parser.removeErrorListeners();
+			lexer.addErrorListener(new LexicalError());
+			parser.addErrorListener(new SyntacticError());
+			
 			ParseTree tree = parser.compilationUnit();
-
 			ParseTreeWalker walker = new ParseTreeWalker();
 			walker.walk(sizeM, tree);
-			System.out.println(tree.toStringTree(parser));
+			
+			//System.out.println(tree.toStringTree(parser));
 	
 		} catch (Exception e) {
 

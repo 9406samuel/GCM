@@ -3,7 +3,12 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+
+import ANTLR4_code.JavaBaseListener;
+
+public class Model extends JavaBaseListener{
 
 	private SizeMetric sizeM;
 	private HalsteadSizeMatric halsteadSizeM ;
@@ -17,9 +22,10 @@ public class Model {
 	}
 	
 	public void startAnalysis( String nameInput ){
+		System.out.println("archivo a analizar: " + nameInput);
 		sizeM = new SizeMetric(); 
 		start( analyzer.startAnalysis( nameInput, sizeM ));
-		printResults();
+		//printResults();
 	}
 
 	public void start( ArrayList<String> tokenList ){
@@ -83,5 +89,4 @@ public class Model {
 		
 	}
 	
-						
 }
