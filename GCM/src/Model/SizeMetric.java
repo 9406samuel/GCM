@@ -314,17 +314,18 @@ public class SizeMetric extends Metric{
 
 	@Override
 	public String toString() {
-		return "SizeMetric [numMethods=" + numMethods + ", numPackage="
-				+ numPackage + ", numImport=" + numImport + ", numLocalVars="
-				+ numLocalVars + ", numFields=" + numFields
-				+ ", numInstanceClass=" + numInstanceClass
-				+ ", numPrimitiveVars=" + numPrimitiveVars
-				+ ", numLinesOfCode=" + numLinesOfCode + ", numFather="
-				+ numFather + ", numImplementations=" + numImplementations
-				+ ", numAccessModifiers=" + numAccessModifiers
-				+ ", numStatements=" + numStatements + ", primitiveTypes="
-				+ primitiveTypes + "]";
+		return "SIZE METRICS:\n"
+				+ "Number of methods: " + numMethods + "\n"
+				+ "Number of packages: " + numPackage + "\n"
+				+ "Number of imports: " + numImport + "\n"
+				+ "Number of local variables: " + numLocalVars + "\n"
+				+ "Number of class fields: " + numFields + "\n"
+				+ "Number of class instances: " + numInstanceClass + "\n"
+				+ "Number of primitive variables: " + numPrimitiveVars +"\n"
+				+ "Number of lines of code: " + numLinesOfCode + "\n"
+				+ "Number of extended classes: " + numFather + "\n"
+				+ "Number of implemented interfaces: " + numImplementations + "\n"
+				+ "Number of access modifiers: " + numAccessModifiers.size() + "\n"
+				+ "\n";
 	}
-	
-	
 }

@@ -398,6 +398,7 @@ public class Application {
 							JOptionPane.showMessageDialog(frame,"Please choose the expected file format type");
 						
 						Controller.getModel().startAnalysis("input.txt");
+						resultsTextArea.setText(Controller.getModel().printResults());
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
@@ -408,7 +409,9 @@ public class Application {
 						JOptionPane.showMessageDialog(frame,"Please choose the expected file format type");
 					
 					Controller.getModel().startAnalysis(f.getAbsolutePath());
+					resultsTextArea.setText(Controller.getModel().printResults());
 				}
+				
 			}
 
 		});

@@ -39,7 +39,7 @@ public class Model extends JavaBaseListener{
 		
 	
 	}
-	
+			
 	public ANTLRAnalysis getAnalyzer() {
 		return analyzer;
 	}
@@ -80,12 +80,12 @@ public class Model extends JavaBaseListener{
 		this.maintainabilityM = maintainabilityM;
 	}
 	
-	public void printResults(){
+	public String printResults(){
 
-		System.out.println(getSizeM().toString());
-		System.out.println(getControlM().toString());
-		System.out.println(getHalsteadSizeM().toString());
-		System.out.println(getMaintainabilityM().toString());
+		return getSizeM().toString();
+		//System.out.println(getControlM().toString());
+		//System.out.println(getHalsteadSizeM().toString());
+		//System.out.println(getMaintainabilityM().toString());
 		
 	}
 	
