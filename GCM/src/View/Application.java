@@ -9,6 +9,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.TextListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -109,23 +110,27 @@ public class Application {
 						result = fileChooser.showOpenDialog(frame);
 						if (result == JFileChooser.APPROVE_OPTION) {
 							f = fileChooser.getSelectedFile();
-							System.out.println("Selected file: "
-									+ f.getAbsolutePath());
+							if (!getFileExtension(f).equals("java")) {
+								JOptionPane
+										.showMessageDialog(frame,
+												"Incorrect file format. Please select a *.java file.");
+								return;
+							}
+
 							iconLabelState = true;
+							resultsTextArea.setText("");
 						}
 					} else if (r == 1) {
 						f = new File("");
 						iconLabel.setIcon(setImageIcon("cross"));
 						iconLabelState = false;
+						resultsTextArea.setText("");
 					}
 
-					System.out.println("resultado del confirm: " + r);
 				} else {
 					result = fileChooser.showOpenDialog(frame);
 					if (result == JFileChooser.APPROVE_OPTION) {
 						f = fileChooser.getSelectedFile();
-						System.out.println("Selected file: "
-								+ f.getAbsolutePath());
 						iconLabelState = true;
 						iconLabel.setIcon(setImageIcon("tick"));
 					} else {
@@ -174,10 +179,10 @@ public class Application {
 
 		JPanel outputFilePane = new JPanel();
 		outputFilePane.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Output file:",
+				.getBorder("TitledBorder.border"), "Output graphic:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JButton generateButton = new JButton("Generate");
+		JButton generateButton = new JButton("Analize");
 
 		GroupLayout gl_outputFilePane = new GroupLayout(outputFilePane);
 		gl_outputFilePane.setHorizontalGroup(gl_outputFilePane
@@ -202,10 +207,34 @@ public class Application {
 
 		JPanel outputGraphicPanel = new JPanel();
 		outputGraphicPanel.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Output graphic:",
+				.getBorder("TitledBorder.border"), "Output file:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JButton analizeButton = new JButton("Analize");
+		JButton analizeButton = new JButton("Generate");
+		analizeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (resultsTextArea.getText().length() == 0) {
+					JOptionPane.showMessageDialog(frame,
+							"There are not results");
+				} else {
+					PrintWriter out;
+					try {
+						out = new PrintWriter(System.getProperty("user.home")
+								+ "\\" + "results.txt");
+						out.print(resultsTextArea.getText());
+						out.close();
+						JOptionPane.showMessageDialog(
+								frame,
+								"Please check "
+										+ System.getProperty("user.home")
+										+ " directory. The output file is named results.txt");
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
 		GroupLayout gl_outputGraphicPanel = new GroupLayout(outputGraphicPanel);
 		gl_outputGraphicPanel.setHorizontalGroup(gl_outputGraphicPanel
 				.createParallelGroup(Alignment.LEADING).addGroup(
@@ -368,50 +397,72 @@ public class Application {
 				codeTextArea.selectAll();
 			}
 
-			@Override
-			public void focusLost(FocusEvent f) {
-				// aqui vay que pasar un archivo con lo que se ingreso como
-				// codigo
-				System.out.println("hola");
-			}
 		});
 		codeScrollPane.setViewportView(codeTextArea);
-
 		generateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			boolean fileFormat = false;
 
+			public void actionPerformed(ActionEvent arg0) {
+				resultsTextArea.setText("");
 				Errorhandling.setErrorShowed(false);
 
 				if (f.getName().equals("")
-						&& codeTextArea.getText().length() == 0)
-					JOptionPane.showMessageDialog(frame,"Both input options are empty, please use one.");
-				else if (!f.getName().equals("")
-						&& codeTextArea.getText().length() > 0)
-					JOptionPane.showMessageDialog(frame,"You are using both input options, please stay with just one.");
-				else if (f.getName().equals("")) {
+						&& codeTextArea.getText().length() == 0) {
+					JOptionPane.showMessageDialog(frame,
+							"Both input options are empty, please use one.");
+				} else if (!f.getName().equals("")
+						&& codeTextArea.getText().length() > 0) {
+					JOptionPane
+							.showMessageDialog(frame,
+									"You are using both input options, please stay with just one.");
+				} else if (f.getName().equals("")) {
 					try {
-						PrintWriter out = new PrintWriter("input.txt");
+						PrintWriter out = new PrintWriter("input.java");
 						out.print(codeTextArea.getText());
 						out.close();
 
-						if (outputFileFormat.equals(""))
-							JOptionPane.showMessageDialog(frame,"Please choose the expected file format type");
-						
-						Controller.getModel().startAnalysis("input.txt");
-						resultsTextArea.setText(Controller.getModel().printResults());
+						if (outputFileFormat.equals("")) {
+							JOptionPane
+									.showMessageDialog(frame,
+											"Please choose the expected file format type");
+						}
+
+						Controller.getModel().startAnalysis("input.java");
+						if (((!outputFileFormat.isEmpty() && !f.getName()
+								.equals("")) || (!outputFileFormat.isEmpty() && codeTextArea
+								.getText().length() > 0))
+								&& !Errorhandling.getErrorShowed()) {
+
+							resultsTextArea.setText(Controller.getModel()
+									.printResults());
+						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
+				} else {
 
 					if (outputFileFormat.equals(""))
-						JOptionPane.showMessageDialog(frame,"Please choose the expected file format type");
-					
-					Controller.getModel().startAnalysis(f.getAbsolutePath());
-					resultsTextArea.setText(Controller.getModel().printResults());
+						JOptionPane.showMessageDialog(frame,
+								"Please choose the expected file format type");
+
+					if (!getFileExtension(f).equals("java"))
+						fileFormat = false;
+					else
+						fileFormat = true;
+
+					if (((!outputFileFormat.isEmpty() && !f.getName()
+							.equals("")) || (!outputFileFormat.isEmpty() && codeTextArea
+							.getText().length() > 0))
+							&& !Errorhandling.getErrorShowed()) {
+						if (!fileFormat)
+							JOptionPane.showMessageDialog(frame,"Incorrect file format. Please select a *.java file.");
+						else {
+							Controller.getModel().startAnalysis(f.getAbsolutePath());
+							resultsTextArea.setText(Controller.getModel().printResults());
+						}
+					}
 				}
-				
+
 			}
 
 		});
@@ -475,11 +526,19 @@ public class Application {
 	}
 
 	public ImageIcon setImageIcon(String str) {
-		ImageIcon ic = new ImageIcon(
-				"C:\\Users\\Samuel Cabezas\\GCM\\GCM\\src\\" + str + ".png");
+		ImageIcon ic = new ImageIcon(System.getProperty("user.home")
+				+ "\\GCM\\GCM\\src\\" + str + ".png");
 		Image im = ic.getImage();
 		Image nim = im.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon fic = new ImageIcon(nim);
 		return fic;
+	}
+
+	private static String getFileExtension(File file) {
+		String fileName = file.getName();
+		if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+			return fileName.substring(fileName.lastIndexOf(".") + 1);
+		else
+			return "";
 	}
 }
