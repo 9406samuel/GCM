@@ -234,7 +234,7 @@ public class HalsteadSizeMatric extends SizeMetric {
 		return "HALSTEAD SIZE METRICS:\n"
 				+ "Vocabulary: " + vocabulary + "\n"
 				+ "Observerd length: " + observedLength + "\n"
-				+ "Calcultated length: " + decimalFormat.format(calculatedLength) + "\n"
+				+ "Calculated length: " + decimalFormat.format(calculatedLength) + "\n"
 				+ "Volumen: " + decimalFormat.format(volumen) + "\n"
 				+ "Difficulty: " + decimalFormat.format(difficulty) + "\n"
 				+ "Effort: " + decimalFormat.format(effort) + "\n"

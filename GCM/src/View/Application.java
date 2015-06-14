@@ -183,7 +183,7 @@ public class Application {
 				.getBorder("TitledBorder.border"), "Output graphic:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JButton generateButton = new JButton("Analize");
+		JButton analizeButton = new JButton("Analize");
 
 		GroupLayout gl_outputFilePane = new GroupLayout(outputFilePane);
 		gl_outputFilePane.setHorizontalGroup(gl_outputFilePane
@@ -191,7 +191,7 @@ public class Application {
 						gl_outputFilePane
 								.createSequentialGroup()
 								.addGap(19)
-								.addComponent(generateButton,
+								.addComponent(analizeButton,
 										GroupLayout.PREFERRED_SIZE, 89,
 										GroupLayout.PREFERRED_SIZE)
 								.addContainerGap(20, Short.MAX_VALUE)));
@@ -201,7 +201,7 @@ public class Application {
 						gl_outputFilePane
 								.createSequentialGroup()
 								.addContainerGap()
-								.addComponent(generateButton,
+								.addComponent(analizeButton,
 										GroupLayout.DEFAULT_SIZE, 25,
 										Short.MAX_VALUE).addContainerGap()));
 		outputFilePane.setLayout(gl_outputFilePane);
@@ -211,8 +211,8 @@ public class Application {
 				.getBorder("TitledBorder.border"), "Output file:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JButton analizeButton = new JButton("Generate");
-		analizeButton.addActionListener(new ActionListener() {
+		JButton generateButton = new JButton("Generate");
+		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (resultsTextArea.getText().length() == 0) {
 					JOptionPane.showMessageDialog(frame,
@@ -242,7 +242,7 @@ public class Application {
 						gl_outputGraphicPanel
 								.createSequentialGroup()
 								.addGap(18)
-								.addComponent(analizeButton,
+								.addComponent(generateButton,
 										GroupLayout.DEFAULT_SIZE, 86,
 										Short.MAX_VALUE).addGap(20)));
 		gl_outputGraphicPanel.setVerticalGroup(gl_outputGraphicPanel
@@ -250,7 +250,7 @@ public class Application {
 						gl_outputGraphicPanel
 								.createSequentialGroup()
 								.addContainerGap()
-								.addComponent(analizeButton,
+								.addComponent(generateButton,
 										GroupLayout.DEFAULT_SIZE, 25,
 										Short.MAX_VALUE).addContainerGap()));
 		outputGraphicPanel.setLayout(gl_outputGraphicPanel);
@@ -400,7 +400,7 @@ public class Application {
 
 		});
 		codeScrollPane.setViewportView(codeTextArea);
-		generateButton.addActionListener(new ActionListener() {
+		analizeButton.addActionListener(new ActionListener() {
 			boolean fileFormat = false;
 
 			public void actionPerformed(ActionEvent arg0) {
