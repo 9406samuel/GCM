@@ -86,7 +86,7 @@ public class DotFile{
         
         //se escriben los atributos generales de los nodos y las aristas
     	bw.write("\tedge[ arrowhead= invodot]\n");
-    	bw.write("\t node [fontname=algerian, fixedsize=true, regular=true, height=2, style=filled]\n\n");
+    	bw.write("\t node [fontcolor=black, fontname=algerian, fixedsize=true, regular=true, height=2, style=filled]\n\n");
     	
 		bw.write("\tsubgraph cluster0{\n");//Inicio del primer subgrafo (metricas generales)
 		bw.write("\tlabel = \"General_Metrics\";\n"); //Nombre del subgrafo
@@ -95,56 +95,70 @@ public class DotFile{
 		//Atributos para cada nodo de primer subgrafo
 		if(sizeM.getNumPrimitiveVars() > 0)
 			bw.write("\t Primitive_Variables [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumPrimitiveVars() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumPrimitiveVars() ) 
+    			+ "\", label = \"Primitive_Variables\n>> "+ sizeM.getNumPrimitiveVars() +" <<\"];\n");
 		if(sizeM.getNumLocalVars() > 0)
 			bw.write("\t Local_Variables [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumLocalVars() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumLocalVars() ) 
+    			+ "\", label = \"Local_Variables\n>> "+ sizeM.getNumLocalVars() +" <<\"];\n");
 		if(sizeM.getNumFields() > 0)
 			bw.write("\t Fields [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumFields()) + "\" ];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumFields()) 
+    			+ "\", label = \"Fields\n>> "+ sizeM.getNumFields() +" <<\" ];\n");
 		if(sizeM.getNumMethods() > 0)
 			bw.write("\t Methods [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumMethods() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumMethods() ) 
+    			+ "\", label = \"Methods\n>> "+ sizeM.getNumMethods() +" <<\"];\n");
 		if(sizeM.getNumPackage() > 0)
 			bw.write("\t Package [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumPackage() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumPackage() ) 
+    			+ "\", label = \"Package\n>> "+ sizeM.getNumPackage() +" <<\"];\n");
 		if(sizeM.getNumImport()  > 0)
 			bw.write("\t Import [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumImport() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumImport() ) 
+    			+ "\", label = \"Import\n>> "+ sizeM.getNumImport() +" <<\"];\n");
 		if(sizeM.getNumInstanceClass()  > 0)
 			bw.write("\t Class_Instance [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumInstanceClass() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumInstanceClass() ) 
+    			+ "\", label = \"Class_Instance\n>> "+ sizeM.getNumInstanceClass() +" <<\"];\n");
 		if(sizeM.getNumFather() > 0)
 			bw.write("\t Super_Class [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumFather() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumFather() ) 
+    			+ "\", label = \"Super_Class \n>> "+ sizeM.getNumFather() +" <<\"];\n");
 		if(sizeM.getNumImplementations()  > 0)
 			bw.write("\t Implementations [shape = circle,  peripheries=2, "
-    			+ "color=\"" + calculateColor( sizeM.getNumImplementations() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumImplementations() ) 
+    			+ "\", label = \"Implementations \n>> "+ sizeM.getNumImplementations() + " <<\"];\n");
     	try {
     		if(halsteadSizeM.getOperators().get("if")  > 0)
     			bw.write("\t If [shape = circle,  peripheries=2, "
-        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("if") ) + "\"];\n");
+        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("if") ) 
+        			+ "\", label = \"If \n>> "+ halsteadSizeM.getOperators().get("if")  +" <<\"];\n");
 		} catch (Exception e) {}
     	try {
     		if(halsteadSizeM.getOperators().get("while")  > 0)
     			bw.write("\t While [shape = circle,  peripheries=2, "
-        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("while") ) + "\"];\n");
+        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("while") ) 
+        			+ "\", label = \"While\n>> "+ halsteadSizeM.getOperators().get("while") +" <<\"];\n");
 		} catch (Exception e) {	}
     	try {
     		if(halsteadSizeM.getOperators().get("for")  > 0)
     			bw.write("\t For [shape = circle,  peripheries=2, "
-        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("for") ) + "\"];\n");
+        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("for") ) 
+        			+ "\", label = \"For \n>> "+ halsteadSizeM.getOperators().get("for")  +" <<\"];\n");
 		} catch (Exception e) {}
 			
     	try {
     		if( halsteadSizeM.getOperators().get("case") > 0)
     			bw.write("\t Case [shape = circle,  peripheries=2, "
-        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("case") ) + "\"];\n");
+        			+ "color=\"" + calculateColor( halsteadSizeM.getOperators().get("case") ) 
+        			+ "\", label = \"Case \n>> "+ halsteadSizeM.getOperators().get("case") +" <<\"];\n");
 		} catch (Exception e) {	}
     	
     	if(sizeM.getNumLinesOfCode() > 0)
     		bw.write("\t Lines [shape = octagon,  peripheries=3, " 
-    			+ "color=\"" + calculateColor( sizeM.getNumLinesOfCode() ) + "\"];\n\n");
+    			+ "color=\"" + calculateColor( sizeM.getNumLinesOfCode() ) 
+    			+ "\", label = \"Lines \n>> "+ sizeM.getNumLinesOfCode() +" <<\"];\n\n");
     	//Relaciones existentes para los nodos del primer subgrafo
 	    if(sizeM.getNumMethods() > 0 && sizeM.getNumLinesOfCode() > 0)
 	    	bw.write("\t Methods -> Lines;\n");
@@ -192,36 +206,47 @@ public class DotFile{
         bw.write("\tlabel = \"Halstead_Metrics\";\n"); //Nombre del subgrafo
 		bw.write("\tcolor = \"blue\";\n");
 		//Atributos para cada nodo de segundo subgrafo
+		
 		if(halsteadSizeM.getTotalOperators() > 0)
 			bw.write("\t Operators_Total [shape = circle,  peripheries=2, "
-	    			+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperators() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperators() ) 
+	    			+ "\", label = \"Operators_Total \n>> "+ halsteadSizeM.getTotalOperators() +" <<\"];\n");
 		if(halsteadSizeM.getTotalOperands() > 0)
 			bw.write("\t Operands_Total [shape = circle,  peripheries=2, "
-					+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperands() ) + "\"];\n");
+					+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperands() ) 
+					+ "\", label = \"Operands_Total \n>> "+ halsteadSizeM.getTotalOperands() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperators()  > 0)
 			bw.write("\t Operators_Distinct [shape = circle,  peripheries=2, "
-	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperators() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperators() ) 
+	    			+ "\", label = \"Operators_Distinct \n>> "+ halsteadSizeM.getDistinctOperators() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperands()  > 0)
 			bw.write("\t Operands_Distinct [shape = circle,  peripheries=2, "
-	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperands() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperands() ) 
+	    			+ "\", label = \"Operands_Distinct\n>> "+ halsteadSizeM.getDistinctOperands() +" <<\"];\n");
 		if((int)halsteadSizeM.getCalculatedLength()  > 0)
 			bw.write("\t Calculated_Length [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getCalculatedLength() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getCalculatedLength() ) 
+	    			+ "\", label = \"Calculated_Length\n>> "+ halsteadSizeM.getCalculatedLength() +" <<\"];\n");
 		if(halsteadSizeM.getVocabulary()  > 0)
 			bw.write("\t Vocabulary [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( halsteadSizeM.getVocabulary() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( halsteadSizeM.getVocabulary() ) 
+	    			+ "\", label = \"Vocabulary\n>> "+ halsteadSizeM.getVocabulary() +" <<\"];\n");
 		if(halsteadSizeM.getObservedLength() > 0)
 			bw.write("\t Observed_Length [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( halsteadSizeM.getObservedLength() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( halsteadSizeM.getObservedLength() ) 
+	    			+ "\", label = \"Observed_Length\n>> "+ halsteadSizeM.getObservedLength() +" <<\"];\n");
 		if((int)halsteadSizeM.getDifficulty()  > 0)
 			bw.write("\t Difficulty [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getDifficulty()) + "\"];\n");
+	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getDifficulty()) 
+	    			+ "\", label = \"Difficulty \n>> "+ halsteadSizeM.getDifficulty() +" <<\"];\n");
 		if((int)halsteadSizeM.getVolumen() > 0)
 			bw.write("\t Volume [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getVolumen() ) + "\"];\n");
+	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getVolumen() ) 
+	    			+ "\", label = \"Volume \n>> "+ halsteadSizeM.getVolumen() +" <<\"];\n");
 		if((int)halsteadSizeM.getEffort() > 0)
 			bw.write("\t Effort [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getEffort() ) + "\"];\n\n");
+	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getEffort() ) 
+	    			+ "\", label = \"Effort \n>> "+ halsteadSizeM.getEffort() +" <<\"];\n\n");
 		
 		
     	//Relaciones existentes para los nodos del segundo subgrafo
@@ -263,7 +288,8 @@ public class DotFile{
 		//Atributos para cada nodo de tercer subgrafo
 		if(controlM.getCyclomaticComplexity() > 0)
 			bw.write("\t Cyclomatic_Complexity [shape = octagon,  peripheries=3, " 
-	    			+ "color=\"" + calculateColor( controlM.getCyclomaticComplexity() ) + "\"];\n\n");
+	    			+ "color=\"" + calculateColor( controlM.getCyclomaticComplexity() ) 
+	    			+ "\", label = \"Cyclomatic_Complexity\n>> "+ controlM.getCyclomaticComplexity() +" <<\"];\n\n");
 		//Relaciones existentes para los nodos del tercer subgrafo
     	try {
     		if(halsteadSizeM.getOperators().get("if") > 0 && controlM.getCyclomaticComplexity() > 0)
@@ -295,7 +321,8 @@ public class DotFile{
 		//Atributos para cada nodo de cuarto subgrafo
 		if( (int) maintainabilityM.getMaintainabilityIndex() > 0)
 			bw.write("\t Maintainability [shape = octagon,  peripheries=3, " 
-    			+ "color=\"" + calculateColor( (int)maintainabilityM.getMaintainabilityIndex() ) + "\"];\n");
+    			+ "color=\"" + calculateColor( (int)maintainabilityM.getMaintainabilityIndex()) 
+    			+ "\", label = \"Maintainability \n>> "+ maintainabilityM.getMaintainabilityIndex() +" <<\"];\n");
 		
 		//Relaciones existentes para los nodos del cuarto subgrafo
 		if(sizeM.getNumLinesOfCode() > 0 && maintainabilityM.getMaintainabilityIndex() > 0)
