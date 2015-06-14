@@ -433,9 +433,9 @@ public class Application {
 								.equals("")) || (!outputFileFormat.isEmpty() && codeTextArea
 								.getText().length() > 0))
 								&& !Errorhandling.getErrorShowed()) {
-
-							resultsTextArea.setText(Controller.getModel()
-									.printResults());
+							
+							resultsTextArea.setText(Controller.getModel().printResults());
+							Controller.getModel().getDotF().generateFile(outputFileFormat.toLowerCase());
 						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
