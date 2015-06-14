@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class DotFile{
 
@@ -20,8 +22,6 @@ public class DotFile{
 		this.controlM = controlM;
 		this.maintainabilityM = maintainabilityM;
 	}
-
-	
 
 	public String calculateColor(Integer metric) { 
 		int rgbNumber;
@@ -65,9 +65,17 @@ public class DotFile{
 		return numColor;
 	}
 
-
-
-	public void generateFile() throws IOException {
+	public void generateFile(String outputFileFormat) {
+		try {
+			createDotFile();
+			toFormat(outputFileFormat);
+			openFile(outputFileFormat);
+	        } catch (IOException exception) {
+			System.out.println("ERROR: The file can not be created");
+		}
+	}
+	
+	public void createDotFile() throws IOException {
 		String ruta = "graphGCM.dot";
         File archivo = new File(ruta);
         BufferedWriter bw;
@@ -94,7 +102,6 @@ public class DotFile{
     			+ "color=\"" + calculateColor( sizeM.getNumFields()) + "\" ];\n");
     	bw.write("\t Methods [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumMethods() ) + "\"];\n");
-    	System.out.println("\nsoy el paquete: " + calculateColor(1) + "\n\n");
     	bw.write("\t Package [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumPackage() ) + "\"];\n");
     	bw.write("\t Import [shape = circle,  peripheries=2, "
@@ -234,7 +241,22 @@ public class DotFile{
         
         bw.close();	//cierre del flujo
 	}
+	
+	private void toFormat(String outputFileFormat)throws IOException{
+		Process p = Runtime.getRuntime().exec("cmd /C dot -T" + outputFileFormat + " graphGCM.dot -o graphGCM."+outputFileFormat);
+		System.out.println("Waiting for file ...");
+	    try {
+			p.waitFor();
+		} catch (InterruptedException exception) {
+			System.out.println("ERROR: Wait Problem");
+		}
+	    System.out.println("The file was created");
+	}
+	
+	public void openFile(String outputFileFormat) throws IOException {
+		
+		Process q = Runtime.getRuntime().exec("cmd /C start graphGCM."+ outputFileFormat);
+		
+	}
 
-	
-	
 }

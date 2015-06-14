@@ -462,11 +462,7 @@ public class Application {
 							if(!Errorhandling.getErrorShowed())
 								resultsTextArea.setText(Controller.getModel().printResults());
 							
-							try {
-								Controller.getModel().getDotF().generateFile();
-							} catch (IOException exception) {
-								System.out.println("ERROR: El Grafo NO se puede generar");
-							}
+							Controller.getModel().getDotF().generateFile(outputFileFormat.toLowerCase());
 						}
 					}
 				}
