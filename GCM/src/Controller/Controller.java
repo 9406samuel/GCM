@@ -41,6 +41,7 @@ public class Controller {
 					try {
 						window = new Application();
 						window.getFrame().setVisible(true);
+						System.out.println("prueba de commit por miguel...");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -49,6 +50,7 @@ public class Controller {
 			
 		} catch (Exception e) {
 			System.err.println("Error (Test): " + e);
+			
 		}
 	}
 }
