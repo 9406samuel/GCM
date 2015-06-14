@@ -1,5 +1,6 @@
 package Model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,8 @@ public class HalsteadSizeMatric extends SizeMetric {
 	private double volumen;
 	private double difficulty;
 	private double effort;
+	private DecimalFormat decimalFormat = new DecimalFormat("###.##");
+
 	
 	public HalsteadSizeMatric( ArrayList<String> l, HashMap<String, Integer> m ){
 		this.tokenList = l;
@@ -228,15 +231,14 @@ public class HalsteadSizeMatric extends SizeMetric {
 
 	@Override
 	public String toString() {
-		return "HalsteadSizeMatric [tokenList=" + tokenList + ", operands="
-				+ operands + ", operators=" + operators
-				+ ", distinctOperators=" + distinctOperators
-				+ ", distinctOperands=" + distinctOperands
-				+ ", totalOperators=" + totalOperators + ", totalOperands="
-				+ totalOperands + ", vocabulary=" + vocabulary
-				+ ", observedLength=" + observedLength + ", calculatedLength="
-				+ calculatedLength + ", volumen=" + volumen + ", difficulty="
-				+ difficulty + ", effort=" + effort + "]";
+		return "HALSTEAD SIZE METRICS:\n"
+				+ "Vocabulary: " + vocabulary + "\n"
+				+ "Observerd length: " + observedLength + "\n"
+				+ "Calcultated length: " + decimalFormat.format(calculatedLength) + "\n"
+				+ "Volumen: " + decimalFormat.format(volumen) + "\n"
+				+ "Difficulty: " + decimalFormat.format(difficulty) + "\n"
+				+ "Effort: " + decimalFormat.format(effort) + "\n"
+				+ "\n";
 	}
 	
 	

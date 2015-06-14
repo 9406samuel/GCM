@@ -459,7 +459,8 @@ public class Application {
 							JOptionPane.showMessageDialog(frame,"Incorrect file format. Please select a *.java file.");
 						else {
 							Controller.getModel().startAnalysis(f.getAbsolutePath());
-							resultsTextArea.setText(Controller.getModel().printResults());
+							if(!Errorhandling.getErrorShowed())
+								resultsTextArea.setText(Controller.getModel().printResults());
 							
 							try {
 								Controller.getModel().getDotF().generateFile();

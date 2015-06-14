@@ -1,11 +1,15 @@
 package Model;
 
+import java.text.DecimalFormat;
+
 public class MaintainabilityMetric extends Metric {
 
 	private double maintainabilityIndex;
 	private int numLinesOfCode;
 	private int numCyclomaticComplexity;
 	private double numhalsteadVolume;
+	private DecimalFormat decimalFormat = new DecimalFormat("###.##");
+
 
 	public MaintainabilityMetric(int l, int c, double h) {
 		maintainabilityIndex = 0;
@@ -38,9 +42,8 @@ public class MaintainabilityMetric extends Metric {
 
 	@Override
 	public String toString() {
-		return "MaintainabilityMetric [maintainabilityIndex="
-				+ maintainabilityIndex + ", numLinesOfCode=" + numLinesOfCode
-				+ ", numCyclomaticComplexity=" + numCyclomaticComplexity
-				+ ", numhalsteadVolume=" + numhalsteadVolume + "]";
+		return "MAINTAINABILITY METRICS:\n"
+				+ "Maintainability index: " +  decimalFormat.format(maintainabilityIndex)
+				+ "\n";
 	}
 }

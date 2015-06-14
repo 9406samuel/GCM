@@ -96,10 +96,10 @@ public class Model extends JavaBaseListener{
 	
 	public String printResults(){
 
-		return getSizeM().toString();
-		//System.out.println(getControlM().toString());
-		//System.out.println(getHalsteadSizeM().toString());
-		//System.out.println(getMaintainabilityM().toString());
+		return getSizeM().toString()
+			 + getHalsteadSizeM().toString()
+			 + getControlM().toString()
+		 	 + getMaintainabilityM().toString();
 		
 	}
 

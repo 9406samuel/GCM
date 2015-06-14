@@ -41,8 +41,9 @@ public class ControlMetric extends Metric{
 
 	@Override
 	public String toString() {
-		return "ControlMetric [cyclomaticComplexity=" + cyclomaticComplexity
-				+ ", operators=" + operators + ", keys=" + keys + "]";
+		return "CONTROL METRICS:\n"
+				+ "Cyclomatic complexity: " + cyclomaticComplexity + "\n"
+				+ "\n";
 	}
 	
 }
