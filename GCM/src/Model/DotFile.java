@@ -86,7 +86,7 @@ public class DotFile{
         
         //se escriben los atributos generales de los nodos y las aristas
     	bw.write("\tedge[ arrowhead= invodot]\n");
-    	bw.write("\t node [fontcolor=red,fontname=algerian, fixedsize=true, regular=true, height=2]\n\n");
+    	bw.write("\t node [fontname=algerian, fixedsize=true, regular=true, height=2, style=filled]\n\n");
     	
 		bw.write("\tsubgraph cluster0{\n");//Inicio del primer subgrafo (metricas generales)
 		bw.write("\tlabel = \"General_Metrics\";\n"); //Nombre del subgrafo
