@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.TextListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.ButtonGroup;
@@ -459,6 +460,12 @@ public class Application {
 						else {
 							Controller.getModel().startAnalysis(f.getAbsolutePath());
 							resultsTextArea.setText(Controller.getModel().printResults());
+							
+							try {
+								Controller.getModel().getDotF().generateFile();
+							} catch (IOException exception) {
+								System.out.println("ERROR: El Grafo NO se puede generar");
+							}
 						}
 					}
 				}

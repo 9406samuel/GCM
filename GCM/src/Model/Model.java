@@ -15,6 +15,8 @@ public class Model extends JavaBaseListener{
 	private ControlMetric controlM;
 	private MaintainabilityMetric maintainabilityM;
 	private ANTLRAnalysis analyzer;
+	private DotFile dotF;
+
 
 	public Model(){
 		analyzer = new ANTLRAnalysis();
@@ -25,8 +27,12 @@ public class Model extends JavaBaseListener{
 		System.out.println("archivo a analizar: " + nameInput);
 		sizeM = new SizeMetric(); 
 		start( analyzer.startAnalysis( nameInput, sizeM ));
+		dotF = new DotFile(sizeM, halsteadSizeM,
+				controlM, maintainabilityM);
 		//printResults();
 	}
+
+	
 
 	public void start( ArrayList<String> tokenList ){
 		halsteadSizeM = new HalsteadSizeMatric( tokenList, sizeM.getOperandsList());
@@ -80,6 +86,14 @@ public class Model extends JavaBaseListener{
 		this.maintainabilityM = maintainabilityM;
 	}
 	
+	public DotFile getDotF() {
+		return this.dotF;
+	}
+	
+	public void setDotF(DotFile dotF) {
+		this.dotF = dotF;
+	}
+	
 	public String printResults(){
 
 		return getSizeM().toString();
@@ -88,5 +102,7 @@ public class Model extends JavaBaseListener{
 		//System.out.println(getMaintainabilityM().toString());
 		
 	}
+
+
 	
 }
