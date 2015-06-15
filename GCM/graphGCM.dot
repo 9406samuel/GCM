@@ -1,28 +1,45 @@
 digraph G {
 	edge[ arrowhead= invodot]
-	 node [fontcolor=black, fontname=arial, fixedsize=true, regular=true, height=2, style=filled]
+	 node [fontcolor=black, fontname=arial, fixedsize=true, height=2, style=filled]
 
+	subgraph cluster4{
+	label = "COLOR SCALE";
+	color = "blue";
+	rankdir = LR
+	node[fixedsize=false, regular=false, height = 0.5];
+	 scale1[ shape = record, label= "1-100", color="#00ffff"];
+	 scale2[ shape = record, label= "101-1000", color="#ff00ff"];
+	 scale3[ shape = record, label= "1001-10000", color="#ffff00"];
+	 scale4[ shape = record, label= "10001-100000", color="#0000ff"];
+	 scale5[ shape = record, label= "100001-1000000", color="#00ff00"];
+	 scale6[ shape = record, label= "more than 1000000", color="#ff0000"];
+	 scale1 -> scale2 -> scale3 -> scale4 -> scale5 -> scale6;
+	}
 	subgraph cluster0{
 	label = "GENERAL METRICS";
 	color = "blue";
-	 Primitive_Variables [shape = circle,  peripheries=2, color="#00e0e0", label = "PRIMITIVE VARIABLES
+	node[regular=true];
+	 Primitive_Variables [shape = circle,  peripheries=2, color="#00fcfc", label = "Primitive
+variables
 >> 2 <<"];
-	 Local_Variables [shape = circle,  peripheries=2, color="#008383", label = "LOCAL VARIABLES
->> 8 <<"];
-	 Fields [shape = circle,  peripheries=2, color="#00c1c1", label = "FIELDS
+	 Local_Variables [shape = circle,  peripheries=2, color="#00f6f6", label = "Local
+Variables
+>> 6 <<"];
+	 Fields [shape = circle,  peripheries=2, color="#00f9f9", label = "Fields
 >> 4 <<" ];
-	 Methods [shape = circle,  peripheries=2, color="#00a2a2", label = "METHOS
+	 Methods [shape = circle,  peripheries=2, color="#00f6f6", label = "Methods
 >> 6 <<"];
-	 Package [shape = circle,  peripheries=2, color="#00f0f0", label = "PACKAGE
+	 Package [shape = circle,  peripheries=2, color="#00fefe", label = "Package
 >> 1 <<"];
-	 Import [shape = circle,  peripheries=2, color="#00a2a2", label = "IMPORT
->> 6 <<"];
-	 Class_Instance [shape = circle,  peripheries=2, color="#006464", label = "CLASS INSTANCE
->> 10 <<"];
-	 If [shape = circle,  peripheries=2, color="#a100a1", label = "IF
+	 Import [shape = circle,  peripheries=2, color="#00f3f3", label = "Import
+>> 8 <<"];
+	 Class_Instance [shape = circle,  peripheries=2, color="#00f3f3", label = "Class
+instance
+>> 8 <<"];
+	 If [shape = circle,  peripheries=2, color="#009b9b", label = "If
 >> 65 <<"];
-	 Lines [shape = octagon,  peripheries=3, color="#d8d800", label = "LINES 
->> 331 <<"];
+	 Lines [shape = octagon,  peripheries=3, color="#cc00cc", label = "Lines 
+>> 400 <<"];
 
 	 Methods -> Lines;
 	 Package -> Lines;
@@ -37,26 +54,33 @@ digraph G {
 	subgraph cluster1{
 	label = "HALSTEAD METRICS";
 	color = "blue";
-	 Operators_Total [shape = circle,  peripheries=2, color="#0000eb", label = "OPERATORS TOTAL 
->> 2176 <<"];
-	 Operands_Total [shape = circle,  peripheries=2, color="#caca00", label = "OPERANDS TOTAL 
->> 410 <<"];
-	 Operators_Distinct [shape = circle,  peripheries=2, color="#f0f000", label = "OPERATORS DISTINCT 
->> 189 <<"];
-	 Operands_Distinct [shape = circle,  peripheries=2, color="#df00df", label = "OPERANDS DDISTINCT
->> 29 <<"];
-	 Calculated_Length [shape = octagon,  peripheries=3, color="#0000f6", label = "CALCULATED LENGTH
->> 1570,15 <<"];
-	 Vocabulary [shape = octagon,  peripheries=3, color="#ebeb00", label = "VOCABULARY
->> 218 <<"];
-	 Observed_Length [shape = octagon,  peripheries=3, color="#0000e4", label = "OBSERVED LENGTH
->> 2586 <<"];
-	 Difficulty [shape = octagon,  peripheries=3, color="#0000fa", label = "DIFFICULTY 
->> 1316 <<"];
-	 Volume [shape = octagon,  peripheries=3, color="#00ee00", label = "VOLUME 
->> 20088,52 <<"];
-	 Effort [shape = octagon,  peripheries=3, color="#FF0000", label = "EFFORT 
->> 26436498,46 <<"];
+	node[regular=true];
+	 Operators_Total [shape = circle,  peripheries=2, color="#e5e500", label = "Total
+operators
+>> 2544 <<"];
+	 Operands_Total [shape = circle,  peripheries=2, color="#c200c2", label = "Total
+operands
+>> 455 <<"];
+	 Operators_Distinct [shape = circle,  peripheries=2, color="#e700e7", label = "Distinct
+operators
+>> 242 <<"];
+	 Operands_Distinct [shape = circle,  peripheries=2, color="#00d7d7", label = "Distinct
+operands
+>> 26 <<"];
+	 Calculated_Length [shape = octagon,  peripheries=3, color="#eeee00", label = "Calculated
+length
+>> 2038,58 <<"];
+	 Vocabulary [shape = octagon,  peripheries=3, color="#e300e3", label = "Vocabulary
+>> 268 <<"];
+	 Observed_Length [shape = octagon,  peripheries=3, color="#dddd00", label = "Observed
+length
+>> 2999 <<"];
+	 Difficulty [shape = octagon,  peripheries=3, color="#eded00", label = "Difficulty
+>> 2057 <<"];
+	 Volume [shape = octagon,  peripheries=3, color="#0000e7", label = "Volume
+>> 24190,2 <<"];
+	 Effort [shape = octagon,  peripheries=3, color="#FF0000", label = "Effort
+>> 49759244,45 <<"];
 
 	 Operators_Distinct -> Vocabulary;
 	 Operands_Distinct -> Vocabulary;
@@ -74,21 +98,36 @@ digraph G {
 	}
 
 	subgraph cluster2{
-	label = "CYCLOMATIC METRIC";
+	label = "CONTROL METRICS";
 	color = "blue";
-	 Cyclomatic_Complexity [shape = octagon,  peripheries=3, color="#9f009f", label = "CYCLOMATIC COMPLEXITY
+	node[regular=true];
+	 Cyclomatic_Complexity [shape = octagon,  peripheries=3, color="#009999", label = "Cyclomatic
+complexity
 >> 66 <<"];
 
 	 If -> Cyclomatic_Complexity;
 	}
 	subgraph cluster3{
-	label = "MAINTAINABILITY INDEX";
+	label = "MAINTAINABILITY
+INDEX";
 	color = "blue";
-	 Maintainability [shape = octagon,  peripheries=3, color="#006464", label = "MAINTAINABILITY 
->> 10,3 <<"];
+	node[regular=true];
+	 Maintainability [shape = octagon,  peripheries=3, color="#00f6f6", label = "Maintainability 
+>> 6,27 <<"];
 	 Lines -> Maintainability;
 	 Cyclomatic_Complexity -> Maintainability;
 	 Volume -> Maintainability;
 	}
+	label = "GCM (Graphic code metrics)
+
+Cada sección que forma el grafo representa un conjunto diferente de métricas.
+Estas  métricas  están representadas por  dos tipos  de  figuras:  las métricas
+simples,  que  han  sido  calculadas  directamente  del   código fuente,  están
+representadas por un círculo doble  y  las métricas compuestas,  que han sido
+calculadas  a  partir  de  las simples,  están  representadas  por un  octágono
+triple.  Las figuras  están conectadas  por aristas que representan  relaciones
+de dependencia  en el  cálculo matemático de las métricas.  Todas las figuras
+cambian su color  y  tono dependiendo del valor de su métrica y de acuerdo a
+la escala que se muestra en la sección COLOR SCALE.";
 
 }
