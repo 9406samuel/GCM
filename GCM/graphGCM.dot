@@ -1,0 +1,94 @@
+digraph G {
+	edge[ arrowhead= invodot]
+	 node [fontcolor=black, fontname=arial, fixedsize=true, regular=true, height=2, style=filled]
+
+	subgraph cluster0{
+	label = "GENERAL METRICS";
+	color = "blue";
+	 Primitive_Variables [shape = circle,  peripheries=2, color="#00e0e0", label = "PRIMITIVE VARIABLES
+>> 2 <<"];
+	 Local_Variables [shape = circle,  peripheries=2, color="#008383", label = "LOCAL VARIABLES
+>> 8 <<"];
+	 Fields [shape = circle,  peripheries=2, color="#00c1c1", label = "FIELDS
+>> 4 <<" ];
+	 Methods [shape = circle,  peripheries=2, color="#00a2a2", label = "METHOS
+>> 6 <<"];
+	 Package [shape = circle,  peripheries=2, color="#00f0f0", label = "PACKAGE
+>> 1 <<"];
+	 Import [shape = circle,  peripheries=2, color="#00a2a2", label = "IMPORT
+>> 6 <<"];
+	 Class_Instance [shape = circle,  peripheries=2, color="#006464", label = "CLASS INSTANCE
+>> 10 <<"];
+	 If [shape = circle,  peripheries=2, color="#a100a1", label = "IF
+>> 65 <<"];
+	 Lines [shape = octagon,  peripheries=3, color="#d8d800", label = "LINES 
+>> 331 <<"];
+
+	 Methods -> Lines;
+	 Package -> Lines;
+	 Import -> Lines;
+	 Local_Variables -> Lines;
+	 Fields -> Lines;
+	 Class_Instance -> Lines;
+	 Primitive_Variables -> Lines;
+	 If -> Lines
+	}
+
+	subgraph cluster1{
+	label = "HALSTEAD METRICS";
+	color = "blue";
+	 Operators_Total [shape = circle,  peripheries=2, color="#0000eb", label = "OPERATORS TOTAL 
+>> 2176 <<"];
+	 Operands_Total [shape = circle,  peripheries=2, color="#caca00", label = "OPERANDS TOTAL 
+>> 410 <<"];
+	 Operators_Distinct [shape = circle,  peripheries=2, color="#f0f000", label = "OPERATORS DISTINCT 
+>> 189 <<"];
+	 Operands_Distinct [shape = circle,  peripheries=2, color="#df00df", label = "OPERANDS DDISTINCT
+>> 29 <<"];
+	 Calculated_Length [shape = octagon,  peripheries=3, color="#0000f6", label = "CALCULATED LENGTH
+>> 1570,15 <<"];
+	 Vocabulary [shape = octagon,  peripheries=3, color="#ebeb00", label = "VOCABULARY
+>> 218 <<"];
+	 Observed_Length [shape = octagon,  peripheries=3, color="#0000e4", label = "OBSERVED LENGTH
+>> 2586 <<"];
+	 Difficulty [shape = octagon,  peripheries=3, color="#0000fa", label = "DIFFICULTY 
+>> 1316 <<"];
+	 Volume [shape = octagon,  peripheries=3, color="#00ee00", label = "VOLUME 
+>> 20088,52 <<"];
+	 Effort [shape = octagon,  peripheries=3, color="#FF0000", label = "EFFORT 
+>> 26436498,46 <<"];
+
+	 Operators_Distinct -> Vocabulary;
+	 Operands_Distinct -> Vocabulary;
+	 Operators_Total -> Observed_Length;
+	 Operands_Total -> Observed_Length;
+	 Operators_Distinct -> Calculated_Length;
+	 Operands_Distinct -> Calculated_Length;
+	 Operators_Distinct-> Difficulty;
+	 Operands_Total -> Difficulty;
+	 Operands_Distinct -> Difficulty;
+	 Vocabulary -> Volume;
+	 Observed_Length -> Volume;
+	 Volume -> Effort;
+	 Difficulty -> Effort;
+	}
+
+	subgraph cluster2{
+	label = "CYCLOMATIC METRIC";
+	color = "blue";
+	 Cyclomatic_Complexity [shape = octagon,  peripheries=3, color="#9f009f", label = "CYCLOMATIC COMPLEXITY
+>> 66 <<"];
+
+	 If -> Cyclomatic_Complexity;
+	}
+	subgraph cluster3{
+	label = "MAINTAINABILITY INDEX";
+	color = "blue";
+	 Maintainability [shape = octagon,  peripheries=3, color="#006464", label = "MAINTAINABILITY 
+>> 10,3 <<"];
+	 Lines -> Maintainability;
+	 Cyclomatic_Complexity -> Maintainability;
+	 Volume -> Maintainability;
+	}
+
+}
