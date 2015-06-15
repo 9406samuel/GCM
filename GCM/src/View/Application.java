@@ -13,6 +13,7 @@ import java.awt.event.TextListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.swing.ButtonGroup;
@@ -530,10 +531,8 @@ public class Application {
 	}
 
 	public ImageIcon setImageIcon(String str) {
-		ImageIcon ic = new ImageIcon(System.getProperty("user.home")
-				+ "\\GCM\\GCM\\src\\" + str + ".png");
-		Image im = ic.getImage();
-		Image nim = im.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
+		Image ic = new ImageIcon(this.getClass().getResource("/" + str + ".png")).getImage();
+		Image nim = ic.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon fic = new ImageIcon(nim);
 		return fic;
 	}

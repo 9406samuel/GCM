@@ -19,33 +19,27 @@ digraph G {
 	label = "GENERAL METRICS";
 	color = "blue";
 	node[regular=true];
-	 Primitive_Variables [shape = circle,  peripheries=2, color="#00fcfc", label = "Primitive
+	 Primitive_Variables [shape = circle,  peripheries=2, color="#00f8f8", label = "Primitive
 variables
->> 2 <<"];
-	 Local_Variables [shape = circle,  peripheries=2, color="#00f6f6", label = "Local
+>> 5 <<"];
+	 Local_Variables [shape = circle,  peripheries=2, color="#00f3f3", label = "Local
 Variables
->> 6 <<"];
-	 Fields [shape = circle,  peripheries=2, color="#00f9f9", label = "Fields
->> 4 <<" ];
-	 Methods [shape = circle,  peripheries=2, color="#00f6f6", label = "Methods
->> 6 <<"];
-	 Package [shape = circle,  peripheries=2, color="#00fefe", label = "Package
+>> 8 <<"];
+	 Methods [shape = circle,  peripheries=2, color="#00fefe", label = "Methods
 >> 1 <<"];
-	 Import [shape = circle,  peripheries=2, color="#00f3f3", label = "Import
->> 8 <<"];
-	 Class_Instance [shape = circle,  peripheries=2, color="#00f3f3", label = "Class
+	 Import [shape = circle,  peripheries=2, color="#00fbfb", label = "Import
+>> 3 <<"];
+	 Class_Instance [shape = circle,  peripheries=2, color="#00fbfb", label = "Class
 instance
->> 8 <<"];
-	 If [shape = circle,  peripheries=2, color="#009b9b", label = "If
->> 65 <<"];
-	 Lines [shape = octagon,  peripheries=3, color="#cc00cc", label = "Lines 
->> 400 <<"];
+>> 3 <<"];
+	 If [shape = circle,  peripheries=2, color="#00fcfc", label = "If
+>> 2 <<"];
+	 Lines [shape = octagon,  peripheries=3, color="#00cccc", label = "Lines 
+>> 33 <<"];
 
 	 Methods -> Lines;
-	 Package -> Lines;
 	 Import -> Lines;
 	 Local_Variables -> Lines;
-	 Fields -> Lines;
 	 Class_Instance -> Lines;
 	 Primitive_Variables -> Lines;
 	 If -> Lines
@@ -55,32 +49,32 @@ instance
 	label = "HALSTEAD METRICS";
 	color = "blue";
 	node[regular=true];
-	 Operators_Total [shape = circle,  peripheries=2, color="#e5e500", label = "Total
+	 Operators_Total [shape = circle,  peripheries=2, color="#f800f8", label = "Total
 operators
->> 2544 <<"];
-	 Operands_Total [shape = circle,  peripheries=2, color="#c200c2", label = "Total
+>> 146 <<"];
+	 Operands_Total [shape = circle,  peripheries=2, color="#00e0e0", label = "Total
 operands
->> 455 <<"];
-	 Operators_Distinct [shape = circle,  peripheries=2, color="#e700e7", label = "Distinct
+>> 20 <<"];
+	 Operators_Distinct [shape = circle,  peripheries=2, color="#00b8b8", label = "Distinct
 operators
->> 242 <<"];
-	 Operands_Distinct [shape = circle,  peripheries=2, color="#00d7d7", label = "Distinct
+>> 46 <<"];
+	 Operands_Distinct [shape = circle,  peripheries=2, color="#00f0f0", label = "Distinct
 operands
->> 26 <<"];
-	 Calculated_Length [shape = octagon,  peripheries=3, color="#eeee00", label = "Calculated
+>> 10 <<"];
+	 Calculated_Length [shape = octagon,  peripheries=3, color="#df00df", label = "Calculated
 length
->> 2038,58 <<"];
-	 Vocabulary [shape = octagon,  peripheries=3, color="#e300e3", label = "Vocabulary
->> 268 <<"];
-	 Observed_Length [shape = octagon,  peripheries=3, color="#dddd00", label = "Observed
+>> 287.3 <<"];
+	 Vocabulary [shape = octagon,  peripheries=3, color="#00a9a9", label = "Vocabulary
+>> 56 <<"];
+	 Observed_Length [shape = octagon,  peripheries=3, color="#f400f4", label = "Observed
 length
->> 2999 <<"];
-	 Difficulty [shape = octagon,  peripheries=3, color="#eded00", label = "Difficulty
->> 2057 <<"];
-	 Volume [shape = octagon,  peripheries=3, color="#0000e7", label = "Volume
->> 24190,2 <<"];
-	 Effort [shape = octagon,  peripheries=3, color="#FF0000", label = "Effort
->> 49759244,45 <<"];
+>> 166 <<"];
+	 Difficulty [shape = octagon,  peripheries=3, color="#00b8b8", label = "Difficulty
+>> 46 <<"];
+	 Volume [shape = octagon,  peripheries=3, color="#6b006b", label = "Volume
+>> 964.02 <<"];
+	 Effort [shape = octagon,  peripheries=3, color="#0000c4", label = "Effort
+>> 44344.96 <<"];
 
 	 Operators_Distinct -> Vocabulary;
 	 Operands_Distinct -> Vocabulary;
@@ -101,9 +95,9 @@ length
 	label = "CONTROL METRICS";
 	color = "blue";
 	node[regular=true];
-	 Cyclomatic_Complexity [shape = octagon,  peripheries=3, color="#009999", label = "Cyclomatic
+	 Cyclomatic_Complexity [shape = octagon,  peripheries=3, color="#00fbfb", label = "Cyclomatic
 complexity
->> 66 <<"];
+>> 3 <<"];
 
 	 If -> Cyclomatic_Complexity;
 	}
@@ -112,8 +106,8 @@ complexity
 INDEX";
 	color = "blue";
 	node[regular=true];
-	 Maintainability [shape = octagon,  peripheries=3, color="#00f6f6", label = "Maintainability 
->> 6,27 <<"];
+	 Maintainability [shape = octagon,  peripheries=3, color="#008888", label = "Maintainability 
+>> 77.94 <<"];
 	 Lines -> Maintainability;
 	 Cyclomatic_Complexity -> Maintainability;
 	 Volume -> Maintainability;
