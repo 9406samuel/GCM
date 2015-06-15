@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 public class DotFile{
 
@@ -89,18 +90,18 @@ public class DotFile{
     	bw.write("\t node [fontcolor=black, fontname=algerian, fixedsize=true, regular=true, height=2, style=filled]\n\n");
     	
 		bw.write("\tsubgraph cluster0{\n");//Inicio del primer subgrafo (metricas generales)
-		bw.write("\tlabel = \"General_Metrics\";\n"); //Nombre del subgrafo
+		bw.write("\tlabel = \"GENERAL METRICS\";\n"); //Nombre del subgrafo
 		bw.write("\tcolor = \"blue\";\n"); 
 
 		//Atributos para cada nodo de primer subgrafo
 		if(sizeM.getNumPrimitiveVars() > 0)
 			bw.write("\t Primitive_Variables [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumPrimitiveVars() ) 
-    			+ "\", label = \"Primitive_Variables\n>> "+ sizeM.getNumPrimitiveVars() +" <<\"];\n");
+    			+ "\", label = \"Primitive Variables\n>> "+ sizeM.getNumPrimitiveVars() +" <<\"];\n");
 		if(sizeM.getNumLocalVars() > 0)
 			bw.write("\t Local_Variables [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumLocalVars() ) 
-    			+ "\", label = \"Local_Variables\n>> "+ sizeM.getNumLocalVars() +" <<\"];\n");
+    			+ "\", label = \"Local Variables\n>> "+ sizeM.getNumLocalVars() +" <<\"];\n");
 		if(sizeM.getNumFields() > 0)
 			bw.write("\t Fields [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumFields()) 
@@ -120,11 +121,11 @@ public class DotFile{
 		if(sizeM.getNumInstanceClass()  > 0)
 			bw.write("\t Class_Instance [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumInstanceClass() ) 
-    			+ "\", label = \"Class_Instance\n>> "+ sizeM.getNumInstanceClass() +" <<\"];\n");
+    			+ "\", label = \"Class Instance\n>> "+ sizeM.getNumInstanceClass() +" <<\"];\n");
 		if(sizeM.getNumFather() > 0)
 			bw.write("\t Super_Class [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumFather() ) 
-    			+ "\", label = \"Super_Class \n>> "+ sizeM.getNumFather() +" <<\"];\n");
+    			+ "\", label = \"Super Class \n>> "+ sizeM.getNumFather() +" <<\"];\n");
 		if(sizeM.getNumImplementations()  > 0)
 			bw.write("\t Implementations [shape = circle,  peripheries=2, "
     			+ "color=\"" + calculateColor( sizeM.getNumImplementations() ) 
@@ -203,30 +204,33 @@ public class DotFile{
         bw.write("\n");
         
         bw.write("\tsubgraph cluster1{\n");//Inicio del segundo subgrafo (metricas de halstead)
-        bw.write("\tlabel = \"Halstead_Metrics\";\n"); //Nombre del subgrafo
+        bw.write("\tlabel = \"HALSTEAD METRICS\";\n"); //Nombre del subgrafo
 		bw.write("\tcolor = \"blue\";\n");
+		
 		//Atributos para cada nodo de segundo subgrafo
 		
 		if(halsteadSizeM.getTotalOperators() > 0)
 			bw.write("\t Operators_Total [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperators() ) 
-	    			+ "\", label = \"Operators_Total \n>> "+ halsteadSizeM.getTotalOperators() +" <<\"];\n");
+	    			+ "\", label = \"Operators Total \n>> "+ halsteadSizeM.getTotalOperators() +" <<\"];\n");
 		if(halsteadSizeM.getTotalOperands() > 0)
 			bw.write("\t Operands_Total [shape = circle,  peripheries=2, "
 					+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperands() ) 
-					+ "\", label = \"Operands_Total \n>> "+ halsteadSizeM.getTotalOperands() +" <<\"];\n");
+					+ "\", label = \"Operands Total \n>> "+ halsteadSizeM.getTotalOperands() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperators()  > 0)
 			bw.write("\t Operators_Distinct [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperators() ) 
-	    			+ "\", label = \"Operators_Distinct \n>> "+ halsteadSizeM.getDistinctOperators() +" <<\"];\n");
+	    			+ "\", label = \"Operators Distinct \n>> "+ halsteadSizeM.getDistinctOperators() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperands()  > 0)
 			bw.write("\t Operands_Distinct [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperands() ) 
-	    			+ "\", label = \"Operands_Distinct\n>> "+ halsteadSizeM.getDistinctOperands() +" <<\"];\n");
+	    			+ "\", label = \"Operands Distinct\n>> "+ halsteadSizeM.getDistinctOperands() +" <<\"];\n");
 		if((int)halsteadSizeM.getCalculatedLength()  > 0)
 			bw.write("\t Calculated_Length [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getCalculatedLength() ) 
-	    			+ "\", label = \"Calculated_Length\n>> "+ halsteadSizeM.getCalculatedLength() +" <<\"];\n");
+	    			+ "\", label = \"Calculated Length\n>> "
+	    			+ halsteadSizeM.getDecimalFormat().format(halsteadSizeM.getCalculatedLength()) 
+	    			+" <<\"];\n");
 		if(halsteadSizeM.getVocabulary()  > 0)
 			bw.write("\t Vocabulary [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getVocabulary() ) 
@@ -234,19 +238,25 @@ public class DotFile{
 		if(halsteadSizeM.getObservedLength() > 0)
 			bw.write("\t Observed_Length [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getObservedLength() ) 
-	    			+ "\", label = \"Observed_Length\n>> "+ halsteadSizeM.getObservedLength() +" <<\"];\n");
+	    			+ "\", label = \"Observed Length\n>> "+ halsteadSizeM.getObservedLength() +" <<\"];\n");
 		if((int)halsteadSizeM.getDifficulty()  > 0)
 			bw.write("\t Difficulty [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getDifficulty()) 
-	    			+ "\", label = \"Difficulty \n>> "+ halsteadSizeM.getDifficulty() +" <<\"];\n");
+	    			+ "\", label = \"Difficulty \n>> "
+	    			+ halsteadSizeM.getDecimalFormat().format(halsteadSizeM.getDifficulty()) 
+	    			+" <<\"];\n");
 		if((int)halsteadSizeM.getVolumen() > 0)
 			bw.write("\t Volume [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getVolumen() ) 
-	    			+ "\", label = \"Volume \n>> "+ halsteadSizeM.getVolumen() +" <<\"];\n");
+	    			+ "\", label = \"Volume \n>> "
+	    			+ halsteadSizeM.getDecimalFormat().format(halsteadSizeM.getVolumen()) 
+	    			+" <<\"];\n");
 		if((int)halsteadSizeM.getEffort() > 0)
 			bw.write("\t Effort [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getEffort() ) 
-	    			+ "\", label = \"Effort \n>> "+ halsteadSizeM.getEffort() +" <<\"];\n\n");
+	    			+ "\", label = \"Effort \n>> "
+	    			+ halsteadSizeM.getDecimalFormat().format(halsteadSizeM.getEffort()) 
+	    			+" <<\"];\n\n");
 		
 		
     	//Relaciones existentes para los nodos del segundo subgrafo
@@ -282,14 +292,14 @@ public class DotFile{
         
         //Inicio del tercer subgrafo (complejidad ciclomatica)
         bw.write("\tsubgraph cluster2{\n");
-        bw.write("\tlabel = \"Cyclomatic_Metric\";\n"); //Nombre del subgrafo
+        bw.write("\tlabel = \"CYCLOMATIC METRIC\";\n"); //Nombre del subgrafo
 		bw.write("\tcolor = \"blue\";\n");
 
 		//Atributos para cada nodo de tercer subgrafo
 		if(controlM.getCyclomaticComplexity() > 0)
 			bw.write("\t Cyclomatic_Complexity [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( controlM.getCyclomaticComplexity() ) 
-	    			+ "\", label = \"Cyclomatic_Complexity\n>> "+ controlM.getCyclomaticComplexity() +" <<\"];\n\n");
+	    			+ "\", label = \"Cyclomatic Complexity\n>> "+ controlM.getCyclomaticComplexity() +" <<\"];\n\n");
 		//Relaciones existentes para los nodos del tercer subgrafo
     	try {
     		if(halsteadSizeM.getOperators().get("if") > 0 && controlM.getCyclomaticComplexity() > 0)
@@ -315,14 +325,16 @@ public class DotFile{
     	
     	//Inicio del Cuarto subgrafo (indice de mantenibilidad)
         bw.write("\tsubgraph cluster3{\n");
-        bw.write("\tlabel = \"Maintainability_Index\";\n"); //Nombre del subgrafo
+        bw.write("\tlabel = \"MAINTAINABILITY INDEX\";\n"); //Nombre del subgrafo
 		bw.write("\tcolor = \"blue\";\n");
 		
 		//Atributos para cada nodo de cuarto subgrafo
 		if( (int) maintainabilityM.getMaintainabilityIndex() > 0)
 			bw.write("\t Maintainability [shape = octagon,  peripheries=3, " 
     			+ "color=\"" + calculateColor( (int)maintainabilityM.getMaintainabilityIndex()) 
-    			+ "\", label = \"Maintainability \n>> "+ maintainabilityM.getMaintainabilityIndex() +" <<\"];\n");
+    			+ "\", label = \"Maintainability \n>> "
+    			+ halsteadSizeM.getDecimalFormat().format(maintainabilityM.getMaintainabilityIndex()) 
+    			+" <<\"];\n");
 		
 		//Relaciones existentes para los nodos del cuarto subgrafo
 		if(sizeM.getNumLinesOfCode() > 0 && maintainabilityM.getMaintainabilityIndex() > 0)

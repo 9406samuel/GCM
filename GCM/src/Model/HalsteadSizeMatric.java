@@ -141,6 +141,12 @@ public class HalsteadSizeMatric extends SizeMetric {
 	public void setEffort(double effort) {
 		this.effort = effort;
 	}
+	
+	
+
+	public DecimalFormat getDecimalFormat() {
+		return this.decimalFormat;
+	}
 
 	public void computeOperandsAndOperators(){
 	
