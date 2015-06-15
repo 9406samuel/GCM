@@ -212,19 +212,19 @@ public class DotFile{
 		if(halsteadSizeM.getTotalOperators() > 0)
 			bw.write("\t Operators_Total [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperators() ) 
-	    			+ "\", label = \"OPERATORS TOTAL \n>> "+ halsteadSizeM.getTotalOperators() +" <<\"];\n");
+	    			+ "\", label = \"TOTAL OPERATORS  \n>> "+ halsteadSizeM.getTotalOperators() +" <<\"];\n");
 		if(halsteadSizeM.getTotalOperands() > 0)
 			bw.write("\t Operands_Total [shape = circle,  peripheries=2, "
 					+ "color=\"" + calculateColor( halsteadSizeM.getTotalOperands() ) 
-					+ "\", label = \"OPERANDS TOTAL \n>> "+ halsteadSizeM.getTotalOperands() +" <<\"];\n");
+					+ "\", label = \"TOTAL OPERANDS  \n>> "+ halsteadSizeM.getTotalOperands() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperators()  > 0)
 			bw.write("\t Operators_Distinct [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperators() ) 
-	    			+ "\", label = \"OPERATORS DISTINCT \n>> "+ halsteadSizeM.getDistinctOperators() +" <<\"];\n");
+	    			+ "\", label = \"DISTINCT OPERATORS\n>> "+ halsteadSizeM.getDistinctOperators() +" <<\"];\n");
 		if(halsteadSizeM.getDistinctOperands()  > 0)
 			bw.write("\t Operands_Distinct [shape = circle,  peripheries=2, "
 	    			+ "color=\"" + calculateColor( halsteadSizeM.getDistinctOperands() ) 
-	    			+ "\", label = \"OPERANDS DDISTINCT\n>> "+ halsteadSizeM.getDistinctOperands() +" <<\"];\n");
+	    			+ "\", label = \"DISTINCT OPERANDS \n>> "+ halsteadSizeM.getDistinctOperands() +" <<\"];\n");
 		if((int)halsteadSizeM.getCalculatedLength()  > 0)
 			bw.write("\t Calculated_Length [shape = octagon,  peripheries=3, " 
 	    			+ "color=\"" + calculateColor( (int)halsteadSizeM.getCalculatedLength() ) 
