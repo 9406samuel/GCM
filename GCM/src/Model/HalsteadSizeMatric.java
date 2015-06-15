@@ -238,6 +238,10 @@ public class HalsteadSizeMatric extends SizeMetric {
 	@Override
 	public String toString() {
 		return "HALSTEAD SIZE METRICS:\n"
+				+ "Distinct operands: " + distinctOperands + "\n"
+				+ "Distinct operators: " + distinctOperators + "\n"
+				+ "Total operands: " + totalOperands + "\n"
+				+ "Total operators: " + totalOperators + "\n"
 				+ "Vocabulary: " + vocabulary + "\n"
 				+ "Observerd length: " + observedLength + "\n"
 				+ "Calculated length: " + decimalFormat.format(calculatedLength) + "\n"
